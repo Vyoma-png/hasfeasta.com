@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Has-Feasta | Premium Artisanal 3D Creamery</title>
+    
+    <title>Has-Feasta | The Grand Celebration of Cream</title>
+    <meta name="description" content="Indulge in the ultimate dessert celebration. Has-Feasta offers artisanal stone-pressed ice creams and royal sundaes.">
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
     <style>
         :root {
-            --cream: #FAF9F6;
-            --beige: #F4F1ED;
-            --gold: #B88E46;
-            --cocoa: #2D241E;
+            --cream: #FFFBF5;
+            --festive-red: #8B0000; /* Deep Berry Red */
+            --gold: #D4AF37;
+            --deep-plum: #2D0B22; /* Darker accent for text */
             --text-dark: #1A1612;
-            --text-lite: #D9D2C5; 
-            --transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
+        
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background-color: var(--cream); 
@@ -38,245 +36,136 @@
         h1, h2, h3, .brand { font-family: 'Playfair Display', serif; }
 
         #loader { 
-            position: fixed; 
-            inset: 0; 
-            background: var(--cocoa); 
-            z-index: 10000; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            color: var(--cream); 
-            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1); 
+            position: fixed; inset: 0; 
+            background: var(--deep-plum); 
+            z-index: 10000; display: flex; justify-content: center; align-items: center; 
+            transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1); 
         }
 
         #canvas-container { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100vh; 
-            z-index: 1;
-            pointer-events: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            z-index: 3; pointer-events: none; 
         }
 
         nav { 
-            position: fixed; 
-            top: 0; 
-            width: 100%; 
-            padding: 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            z-index: 100; 
-            transition: background 0.3s;
-        }
-
-        nav.scrolled { 
-            background: rgba(250, 249, 246, 0.9); 
-            backdrop-filter: blur(10px); 
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: fixed; top: 0; width: 100%; padding: 25px; 
+            display: flex; justify-content: space-between; align-items: center; z-index: 100; 
         }
 
         .logo { 
-            font-size: 1.2rem; 
-            text-transform: uppercase; 
-            letter-spacing: 3px; 
-            font-weight: 700; 
-            color: var(--cocoa); 
-            text-decoration: none; 
+            font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; 
+            font-weight: 700; color: var(--festive-red); text-decoration: none; 
         }
 
         section { 
-            position: relative; 
-            min-height: 100vh; 
-            padding: 100px 24px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            z-index: 5;
+            position: relative; min-height: 100vh; padding: 100px 24px; 
+            display: flex; flex-direction: column; justify-content: center; z-index: 5;
         }
 
         .content-block { 
-            max-width: 500px; 
-            opacity: 0; 
-            transform: translateY(30px); 
+            max-width: 500px; opacity: 0; transform: translateY(30px); 
             transition: var(--transition); 
         }
 
-        .content-block.active { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
+        .content-block.active { opacity: 1; transform: translateY(0); }
 
         .tag { 
-            text-transform: uppercase; 
-            letter-spacing: 4px; 
-            font-size: 0.7rem; 
-            color: var(--gold); 
-            display: block; 
-            margin-bottom: 15px; 
-            font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; 
+            color: var(--gold); font-weight: 700; margin-bottom: 10px; display: block;
         }
 
-        h1 { font-size: 3.5rem; line-height: 0.95; margin-bottom: 20px; color: var(--gold); }
-        h2 { font-size: 2.8rem; margin-bottom: 15px; color: var(--gold); }
+        h1 { font-size: 4rem; color: var(--festive-red); line-height: 1; margin-bottom: 20px; }
+        h2 { font-size: 3rem; color: var(--deep-plum); margin-bottom: 20px; }
+        p.description { font-size: 1.1rem; margin-bottom: 20px; color: #444; }
 
-        .description { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 20px; font-weight: 500; }
+        /* Menu Grid */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; margin-top: 50px; }
+        .category-card { 
+            height: 400px; position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; 
+        }
+        .category-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease; }
+        .category-card:hover img { transform: scale(1.1); }
+        .card-overlay { 
+            position: absolute; inset: 0; 
+            background: linear-gradient(to top, rgba(45, 11, 34, 0.9), transparent); 
+            padding: 30px; display: flex; flex-direction: column; justify-content: flex-end; color: white; 
+        }
+
+        /* Varieties Page */
+        #varieties-page { 
+            position: fixed; inset: 0; background: var(--cream); z-index: 2000; 
+            padding: 80px 24px; overflow-y: auto; display: none; opacity: 0; transition: opacity 0.5s ease; 
+        }
+        #varieties-page.active { display: block; opacity: 1; }
+        .back-btn { 
+            position: fixed; top: 25px; right: 25px; background: var(--festive-red); 
+            color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; z-index: 2100;
+        }
+
+        footer { background: var(--deep-plum); color: var(--cream); padding: 80px 24px; text-align: center; }
 
         @media (min-width: 1024px) {
-            section { padding: 0 10%; } 
-            h1 { font-size: 7rem; }
-            h2 { font-size: 4.5rem; }
+            section { padding-left: 10%; }
+            h1 { font-size: 6rem; }
         }
-
-        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; margin-top: 40px; }
-        @media (min-width: 768px) { .menu-grid { grid-template-columns: repeat(2, 1fr); } }
-
-        .category-card { 
-            background: white; 
-            height: 450px; 
-            position: relative; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            cursor: pointer; 
-        }
-
-        .category-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
-        .category-card:hover img { transform: scale(1.05); }
-
-        .card-overlay { 
-            position: absolute; 
-            inset: 0; 
-            background: linear-gradient(to top, rgba(45, 36, 30, 0.9), transparent 70%); 
-            padding: 30px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            color: white; 
-        }
-
-        .action-bar { display: flex; align-items: center; gap: 10px; margin-top: 15px; }
-
-        .price-tag { 
-            font-weight: 700; 
-            font-size: 0.75rem; 
-            color: var(--gold); 
-            background: rgba(255,255,255,0.1); 
-            padding: 8px 16px; 
-            border-radius: 100px; 
-            border: 1px solid rgba(184, 142, 70, 0.4);
-        }
-
-        .ar-btn {
-            background: var(--gold);
-            color: var(--cocoa);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 100px;
-            font-weight: 800;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .ar-btn:hover { background: white; transform: translateY(-2px); }
-
-        #varieties-page { 
-            position: fixed; 
-            inset: 0; 
-            background: var(--cream); 
-            z-index: 2000; 
-            padding: 80px 24px; 
-            overflow-y: auto; 
-            display: none; 
-            opacity: 0; 
-            transition: opacity 0.5s;
-        }
-
-        #varieties-page.active { display: block; opacity: 1; }
-
-        .back-btn { 
-            position: fixed; top: 25px; right: 25px; background: var(--cocoa); color: var(--cream); 
-            padding: 10px 20px; border-radius: 100px; cursor: pointer; border: none; font-size: 0.7rem; font-weight: 700; z-index: 2100;
-        }
-
-        .varieties-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 50px; }
-        .variety-item { text-align: center; }
-        .variety-item img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
-
-        footer { background: var(--cocoa); color: var(--cream); padding: 80px 24px; text-align: center; z-index: 10; position: relative; }
-
-        /* AR hidden element */
-        model-viewer#ar-model { width: 0; height: 0; position: absolute; visibility: hidden; }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <div style="text-align: center;">
-            <h1 class="brand" style="color: white; font-size: 2.5rem; letter-spacing: 4px;">HAS-FEASTA</h1>
-            <p style="color: var(--gold); font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; margin-top: 15px;">Artisanal Excellence</p>
-        </div>
+        <h1 class="brand" style="color: var(--gold); letter-spacing: 8px;">HAS-FEASTA</h1>
     </div>
-
-    <model-viewer 
-        id="ar-model" 
-        ar 
-        ar-modes="webxr scene-viewer quick-look" 
-        src="https://modelviewer.dev/shared-assets/models/IceCream.glb" 
-        alt="Artisanal Ice Cream">
-    </model-viewer>
 
     <nav id="navbar">
         <a href="#" class="logo brand">Has-Feasta</a>
-        <div style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; color: var(--gold);">Est. 2025</div>
+        <div class="tag" style="margin:0">Premium Churn</div>
     </nav>
 
     <div id="canvas-container"></div>
 
     <aside id="varieties-page">
-        <button class="back-btn" onclick="closeVarieties()">Close Menu</button>
-        <div style="text-align: center;">
+        <button class="back-btn" onclick="closeVarieties()">← Back</button>
+        <div style="text-align: center; margin-bottom: 50px;">
             <span class="tag" id="var-tag">Selection</span>
-            <h2 class="brand" id="var-title">Varieties</h2>
+            <h2 id="var-title" class="brand">Menu</h2>
         </div>
-        <div class="varieties-grid" id="var-grid"></div>
+        <div id="var-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto;"></div>
     </aside>
 
     <main>
-        <section id="home">
+        <section id="hero">
             <div class="content-block active">
-                <span class="tag">Dec 2025 Edition</span>
-                <h1>Crafted <br>To Roar.</h1>
-                <p class="description">Sustainable Belgian cocoa meets pure slow-churned Jersey cream.</p>
+                <span class="tag">The Grand Opening</span>
+                <h1>A Feast <br>For Senses.</h1>
+                <p class="description">Welcome to Has-Feasta. Where artisanal precision meets festive indulgence. Crafted with 100% pure dairy and world-class inclusions.</p>
             </div>
         </section>
 
-        <section id="menu" style="background: var(--beige);">
-            <div style="width: 100%; text-align: center;">
-                <span class="tag">The Archive</span>
-                <h2 class="brand">Signatures</h2>
+        <section id="quality">
+            <div class="content-block">
+                <span class="tag">The Process</span>
+                <h2>Stone <br>Cold Magic.</h2>
+                <p class="description">Our signature "Has-Feasta" technique involves folding premium toppings into freshly churned cream on a frozen marble slab at -16°C.</p>
+            </div>
+        </section>
+
+        <section id="menu" style="background: #fdf2f2; min-height: auto; align-items: center;">
+            <div style="width: 100%; max-width: 1200px; text-align: center;">
+                <span class="tag">Explore</span>
+                <h2 class="brand">The Festive Menu</h2>
                 <div class="menu-grid">
                     <div class="category-card" onclick="openVarieties('stone')">
-                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=1200" alt="Ice Cream">
+                        <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?q=80&w=1200" alt="Stone Pressed">
                         <div class="card-overlay">
-                            <h3 class="brand" style="font-size: 1.8rem;">Stone Pressed</h3>
-                            <div class="action-bar">
-                                <span class="price-tag">From ₹320</span>
-                                <button class="ar-btn" onclick="event.stopPropagation(); launchAR()">AR Table View</button>
-                            </div>
+                            <h3 class="brand">Stone Pressed</h3>
+                            <p>Hand-folded on marble slabs.</p>
                         </div>
                     </div>
                     <div class="category-card" onclick="openVarieties('sundaes')">
-                        <img src="https://images.unsplash.com/photo-1543255006-d6395b6f1171?q=80&w=1200" alt="Sundaes">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?q=80&w=1200" alt="Royal Sundaes">
                         <div class="card-overlay">
-                            <h3 class="brand" style="font-size: 1.8rem;">Royal Sundaes</h3>
-                            <div class="action-bar">
-                                <span class="price-tag">From ₹450</span>
-                                <button class="ar-btn" onclick="event.stopPropagation(); launchAR()">AR Table View</button>
-                            </div>
+                            <h3 class="brand">Royal Sundaes</h3>
+                            <p>Layered masterpieces.</p>
                         </div>
                     </div>
                 </div>
@@ -285,161 +174,115 @@
     </main>
 
     <footer>
-        <span class="brand" style="font-size: 1.5rem; letter-spacing: 5px;">HAS-FEASTA</span>
-        <p style="margin-top: 20px; font-size: 0.7rem; opacity: 0.7;">&copy; 2025 Has-Feasta. All Rights Reserved.</p>
+        <h2 class="brand" style="color: var(--gold); letter-spacing: 5px;">HAS-FEASTA</h2>
+        <p style="opacity: 0.6; font-size: 0.8rem; margin-top: 20px;">© 2026 HAS-FEASTA ARTISANAL CREAMERY. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
-        // --- DATA ---
+        // MENU DATA
         const menuData = {
             stone: {
                 title: "Stone Pressed",
-                tag: "Marble Mixed",
+                tag: "Marble Creations",
                 items: [
-                    { name: "Ferrero Crunch", price: "₹380", img: "https://www.nestleprofessional.in/sites/default/files/2024-10/Coconut-Ice-cream-756x471_5_11zon.webp" },
-                    { name: "Caramel Cashew", price: "₹350", img: "https://cupcakesandcouscous.com/wp-content/uploads/2017/03/d1311-salted2bcaramel2bice2bcream2b72bof2b7.jpg" }
+                    { name: "Biscoff Blast", price: "₹340", desc: "Lotus biscoff spread with crunchy bits.", img: "https://images.unsplash.com/photo-1580915411954-282cb1b0d780?q=80&w=800" },
+                    { name: "Nutty Nirvana", price: "₹380", desc: "Roasted almonds, cashews, and pistachios.", img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?q=80&w=800" }
                 ]
             },
             sundaes: {
                 title: "Royal Sundaes",
-                tag: "Tiered Luxury",
+                tag: "The Grand Feast",
                 items: [
-                    { name: "The Choco Lava", price: "₹520", img: "https://images.unsplash.com/photo-1624353365286-3f8d62daad51?q=80&w=800" }
+                    { name: "The Has-Feasta Special", price: "₹550", desc: "Triple scoop with fudge, fruits, and nuts.", img: "https://images.unsplash.com/photo-1543255006-d6395b6f1171?q=80&w=800" }
                 ]
             }
         };
 
-        // --- AR TRIGGER ---
-        function launchAR() {
-            const mv = document.getElementById('ar-model');
-            if(mv) mv.activateAR();
-        }
-
-        // --- NAVIGATION ---
         function openVarieties(cat) {
             const data = menuData[cat];
             document.getElementById('var-title').innerText = data.title;
             document.getElementById('var-tag').innerText = data.tag;
             const grid = document.getElementById('var-grid');
             grid.innerHTML = data.items.map(item => `
-                <div class="variety-item">
-                    <img src="${item.img}">
-                    <h4>${item.name}</h4>
-                    <div class="action-bar" style="justify-content:center;">
-                        <span class="price-tag">${item.price}</span>
-                        <button class="ar-btn" onclick="launchAR()">AR View</button>
-                    </div>
+                <div style="text-align:center;">
+                    <img src="${item.img}" style="width:100%; border-radius:12px; margin-bottom:15px;">
+                    <h3>${item.name}</h3>
+                    <p style="font-size:0.9rem; color:#666;">${item.desc}</p>
+                    <p style="font-weight:bold; color:var(--festive-red); margin-top:10px;">${item.price}</p>
                 </div>
             `).join('');
-            const page = document.getElementById('varieties-page');
-            page.style.display = 'block';
-            setTimeout(() => page.classList.add('active'), 10);
-            document.body.style.overflow = 'hidden';
+            document.getElementById('varieties-page').style.display = 'block';
+            setTimeout(() => document.getElementById('varieties-page').classList.add('active'), 10);
         }
 
         function closeVarieties() {
-            const page = document.getElementById('varieties-page');
-            page.classList.remove('active');
-            setTimeout(() => {
-                page.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }, 500);
+            document.getElementById('varieties-page').classList.remove('active');
+            setTimeout(() => document.getElementById('varieties-page').style.display = 'none', 500);
         }
 
-        // --- THREE.JS (The Exact Model Restored) ---
-        let scene, camera, renderer, group;
-        let scrollY = 0;
+        // 3D LOGIC
+        let scene, camera, renderer, group, scrollPercent = 0;
 
         function init3D() {
-            const container = document.getElementById('canvas-container');
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.z = 5;
 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+            const ambient = new THREE.AmbientLight(0xffffff, 1);
+            scene.add(ambient);
 
             group = new THREE.Group();
             scene.add(group);
 
-            // --- THE EXACT MODEL LOGIC ---
-            const mainScoopGeo = new THREE.SphereGeometry(1.5, 64, 64);
-            const scoopMat = new THREE.MeshStandardMaterial({ 
-                color: 0xF4F1ED, 
-                roughness: 0.3, 
-                metalness: 0.1 
-            });
-            const scoop = new THREE.Mesh(mainScoopGeo, scoopMat);
-            group.add(scoop);
+            // Create Label Texture
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024; canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#8B0000'; // Festive Red
+            ctx.fillRect(0, 0, 1024, 1024);
+            ctx.strokeStyle = '#D4AF37'; // Gold
+            ctx.lineWidth = 40;
+            ctx.strokeRect(50, 50, 924, 924);
+            ctx.fillStyle = '#FFFBF5';
+            ctx.font = 'bold 120px serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('HAS-FEASTA', 512, 500);
+            ctx.font = '40px sans-serif';
+            ctx.fillText('ARTISANAL FEAST', 512, 580);
 
-            // Decorative "Lumps" for texture
-            for(let i = 0; i < 6; i++) {
-                const lumpGeo = new THREE.SphereGeometry(0.5, 32, 32);
-                const lump = new THREE.Mesh(lumpGeo, scoopMat);
-                lump.position.set(
-                    (Math.random() - 0.5) * 2,
-                    (Math.random() - 0.5) * 2,
-                    (Math.random() - 0.5) * 2
-                );
-                group.add(lump);
-            }
-
-            // Cocoa Dust particles
-            const particleGeo = new THREE.IcosahedronGeometry(0.04, 0);
-            const particleMat = new THREE.MeshStandardMaterial({ color: 0x2D241E });
-            for(let i = 0; i < 30; i++) {
-                const p = new THREE.Mesh(particleGeo, particleMat);
-                p.position.set(
-                    (Math.random() - 0.5) * 5,
-                    (Math.random() - 0.5) * 5,
-                    (Math.random() - 0.5) * 5
-                );
-                group.add(p);
-            }
-
-            const light = new THREE.PointLight(0xB88E46, 1.5);
-            light.position.set(5, 5, 5);
-            scene.add(light);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+            const texture = new THREE.CanvasTexture(canvas);
+            const geometry = new THREE.CylinderGeometry(1.5, 1.3, 3.5, 64);
+            const material = new THREE.MeshStandardMaterial({ map: texture, roughness: 0.3 });
+            group.add(new THREE.Mesh(geometry, material));
 
             animate();
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            if(group) {
-                group.rotation.y += 0.005;
-                group.rotation.x += 0.002;
-                group.position.y = -window.scrollY * 0.005;
-            }
+            group.rotation.y += 0.005 + (scrollPercent * 0.05);
+            
+            let targetX = window.innerWidth > 1024 ? 2.5 : 0;
+            group.position.x += (targetX - group.position.x) * 0.05;
+            
             renderer.render(scene, camera);
         }
 
+        window.addEventListener('scroll', () => {
+            scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            document.querySelectorAll('.content-block').forEach(el => {
+                if(el.getBoundingClientRect().top < window.innerHeight * 0.8) el.classList.add('active');
+            });
+        });
+
         window.onload = () => {
             init3D();
-            setTimeout(() => {
-                document.getElementById('loader').style.transform = 'translateY(-100%)';
-            }, 1000);
-        };
-
-        window.onscroll = () => {
-            const nav = document.getElementById('navbar');
-            if(window.scrollY > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-            
-            document.querySelectorAll('.content-block').forEach(b => {
-                if(b.getBoundingClientRect().top < window.innerHeight * 0.8) b.classList.add('active');
-            });
-        };
-
-        window.onresize = () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            setTimeout(() => document.getElementById('loader').style.transform = 'translateY(-100%)', 1500);
         };
     </script>
 </body>
 </html>
-
